@@ -59,7 +59,7 @@ func (lcd *AQM0802) writeDisplay(lineNum int, s string) (err error) {
 
 }
 func (lcd *AQM0802) clearDisplay() (err error) {
-	lcd.bus.WriteByte(
+	err = lcd.bus.WriteByte(
 		lcd.addr,
 		0x00,
 		0x01)
