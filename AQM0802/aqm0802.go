@@ -2,9 +2,9 @@ package aqm0802
 
 import (
 	"bitbucket.org/gmcbay/i2c"
+	"errors"
 	"fmt"
 	"time"
-	"errors"
 )
 
 type AQM0802 struct {
@@ -36,39 +36,38 @@ func (lcd *AQM0802) Init() (err error) {
 	}
 }
 
-func (lcd *AQM0802)writeDisplay(lineNum int, s string)(err error){
-	switch lineNum{
-		case 1:
-			err=lcd.moveFirstLine()
-			if err!=nil{
-				return
-			}
-		case 2:
-			err=lcd.moveSecondLine()
-			if err!=nil{
-				return
-			}
-		default:
-			err = errors.New("lineNum is 1 or 2")
+func (lcd *AQM0802) writeDisplay(lineNum int, s string) (err error) {
+	switch lineNum {
+	case 1:
+		err = lcd.moveFirstLine()
+		if err != nil {
 			return
-	}
-	err=lcd.writeLine(s)
-	if err!=nil{
+		}
+	case 2:
+		err = lcd.moveSecondLine()
+		if err != nil {
+			return
+		}
+	default:
+		err = errors.New("lineNum is 1 or 2")
 		return
 	}
-	
-	
+	err = lcd.writeLine(s)
+	if err != nil {
+		return
+	}
+
 }
-func (lcd *AQM0802)clearDisplay()(err error){
+func (lcd *AQM0802) clearDisplay() (err error) {
 	lcd.bus.WriteByte(
 		lcd.addr,
 		0x00,
-		0x01
-	)
+		0x01)
 }
-func (lcd *AQM0802)writeLine(s string)(err error){
-	code, err:=stringToLcdcode(s)
-	if err!=nil{
+
+func (lcd *AQM0802) writeLine(s string) (err error) {
+	code, err := stringToLcdcode(s)
+	if err != nil {
 		return
 	}
 	err = lcd.bus.WriteByteBlock(
@@ -80,7 +79,7 @@ func (lcd *AQM0802)writeLine(s string)(err error){
 	}
 }
 
-func (lcd *AQM0802)moveFirstLine()(err error){
+func (lcd *AQM0802) moveFirstLine() (err error) {
 	err = lcd.bus.WriteByte(
 		lcd.addr,
 		0x00,
@@ -90,7 +89,7 @@ func (lcd *AQM0802)moveFirstLine()(err error){
 	}
 }
 
-func (lcd *AQM0802)moveSecondLine()(err error){
+func (lcd *AQM0802) moveSecondLine() (err error) {
 	err = lcd.bus.WriteByte(
 		lcd.addr,
 		0x00,
@@ -101,8 +100,8 @@ func (lcd *AQM0802)moveSecondLine()(err error){
 }
 func stringToLcdcode(s string) (code [8]byte, err error) {
 	//initialize with white space code
-	for i:=0;i<len(code);i++{
-		code[i]=0xa0
+	for i := 0; i < len(code); i++ {
+		code[i] = 0xa0
 	}
 	runeArray := []rune(s)
 	if len(runeArray) > 8 {
