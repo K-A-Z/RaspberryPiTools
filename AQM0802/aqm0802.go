@@ -36,7 +36,7 @@ func (lcd *AQM0802) Init() (err error) {
 	return
 }
 
-func (lcd *AQM0802) writeDisplay(lineNum int, s string) (err error) {
+func (lcd *AQM0802) WriteDisplay(lineNum int, s string) (err error) {
 	switch lineNum {
 	case 1:
 		err = lcd.moveFirstLine()
@@ -59,7 +59,7 @@ func (lcd *AQM0802) writeDisplay(lineNum int, s string) (err error) {
 	return
 }
 
-func (lcd *AQM0802) clearDisplay() (err error) {
+func (lcd *AQM0802) ClearDisplay() (err error) {
 	err = lcd.bus.WriteByte(lcd.addr, 0x00, 0x01)
 	return
 }
