@@ -12,6 +12,7 @@ type AQM0802 struct {
 }
 
 func NewAQM0802(busNumber, addr byte) (lcd *AQM0802, err error) {
+	lcd = new(AQM0802)
 	lcd.bus, err = i2c.Bus(busNumber)
 	if err != nil {
 		return
