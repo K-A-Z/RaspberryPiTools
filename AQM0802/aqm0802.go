@@ -95,8 +95,9 @@ func (lcd *AQM0802) moveSecondLine() (err error) {
 		return
 	}
 }
-func stringToLcdcode(s string) (code [8]byte, err error) {
+func stringToLcdcode(s string) (code []byte, err error) {
 	//initialize with white space code
+	code = make([]byte, 8, 8)
 	for i := 0; i < len(code); i++ {
 		code[i] = 0xa0
 	}
