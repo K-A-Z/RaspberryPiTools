@@ -33,6 +33,7 @@ func (lcd *AQM0802) Init() (err error) {
 	if err != nil {
 		return
 	}
+	return
 }
 
 func (lcd *AQM0802) writeDisplay(lineNum int, s string) (err error) {
@@ -55,11 +56,12 @@ func (lcd *AQM0802) writeDisplay(lineNum int, s string) (err error) {
 	if err != nil {
 		return
 	}
-
+	return
 }
 
 func (lcd *AQM0802) clearDisplay() (err error) {
 	err = lcd.bus.WriteByte(lcd.addr, 0x00, 0x01)
+	return
 }
 
 func (lcd *AQM0802) writeLine(s string) (err error) {
@@ -74,6 +76,7 @@ func (lcd *AQM0802) writeLine(s string) (err error) {
 	if err != nil {
 		return
 	}
+	return
 }
 
 func (lcd *AQM0802) moveFirstLine() (err error) {
@@ -84,6 +87,7 @@ func (lcd *AQM0802) moveFirstLine() (err error) {
 	if err != nil {
 		return
 	}
+	return
 }
 
 func (lcd *AQM0802) moveSecondLine() (err error) {
@@ -94,6 +98,7 @@ func (lcd *AQM0802) moveSecondLine() (err error) {
 	if err != nil {
 		return
 	}
+	return
 }
 func stringToLcdcode(s string) (code []byte, err error) {
 	//initialize with white space code
