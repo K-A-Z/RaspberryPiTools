@@ -101,33 +101,3 @@ func (lcd *AQM0802) moveSecondLine() (err error) {
 	}
 	return
 }
-func stringToLcdcode(s string) (code []byte, err error) {
-	//initialize with white space code
-	code = make([]byte, 8, 8)
-	for i := 0; i < len(code); i++ {
-		code[i] = 0xa0
-	}
-	runeArray := []rune(s)
-	if len(runeArray) > 8 {
-		err = errors.New("Exceeded number of charactor per one line")
-		return
-	}
-	for i, r := range runeArray {
-		code[i], err = charToLcdcode(r)
-	}
-	return
-}
-
-func charToLcdcode(r rune) (code byte, err error) {
-	switch string(r) {
-	case "A":
-		code = 0x41
-	case "B":
-		code = 0x42
-	case "C":
-		code = 0x43
-	default:
-		err = errors.New("Unsupported string: " + string(r))
-	}
-	return
-}
