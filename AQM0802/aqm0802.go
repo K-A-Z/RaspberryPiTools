@@ -125,7 +125,7 @@ func charToLcdcode(r rune) (code byte, err error) {
 	case "B":
 		code = 0x42
 	case "C":
-		code = 0x11
+		code = 0x43
 	default:
 		err = errors.New("Unsupported string: " + string(r))
 	}
