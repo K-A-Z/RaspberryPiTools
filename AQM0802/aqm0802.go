@@ -30,7 +30,7 @@ func (lcd *AQM0802) Init() (err error) {
 	}
 	time.Sleep(time.Millisecond * 200)
 	err = lcd.bus.WriteByteBlock(lcd.addr, 0x00,
-		[]byte{0x38, 0x39, 0x14, 0x70, 0x56, 0x6c})
+		[]byte{0x38, 0x0d, 0x01})
 	if err != nil {
 		return
 	}
